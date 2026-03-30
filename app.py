@@ -7,30 +7,28 @@ from datetime import datetime, date, timedelta
 from functools import wraps
 from flask import Flask, request, jsonify, session, redirect
 import requests as http
-
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(message)s")
 log = logging.getLogger("cryptolearn")
-
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", secrets.token_hex(32))
-
 STRIPE_SECRET_KEY      = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_WEBHOOK_SECRET  = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 STRIPE_PRICE_ID        = os.environ.get("STRIPE_PRICE_ID", "")
 APP_URL                = os.environ.get("APP_URL", "http://localhost:5000")
 DB_PATH = "cryptolearn.db"
-
-
 # ══════════════════════════════════════════
 #  CONTENU — Leçons et Quiz
 # ══════════════════════════════════════════
 MODULES = [
     {
-        "id": 1, "name": "Les Bases", "emoji": "🥚",
+        "id": 1, "name": "Les Bases", "emoji": "
         "level": "Débutant", "free": True,
+",
         "desc": "Comprendre la bourse, les cryptos et les ETFs",
         "lessons": [
+            {
+            },
             {
                 "id": 1, "title": "C'est quoi une action ?",
                 "content": "Une action est une part de propriété d'une entreprise. Quand tu achètes une action Apple, tu deviens copropriétaire d'Apple ! Si l'entreprise grandit, ton action vaut plus. Si elle recule, ton action vaut moins.",
@@ -39,8 +37,6 @@ MODULES = [
                     {"question": "Qu'est-ce qu'une action ?", "answers": ["Un billet de banque", "Une part de propriété d'une entreprise", "Un prêt à une entreprise", "Une monnaie numérique"], "correct": 1, "explanation": "Une action représente une part de propriété d'une entreprise cotée en bourse."},
                     {"question": "Si une entreprise fait de bons résultats, son action...", "answers": ["Reste stable", "Baisse généralement", "Monte généralement", "Disparaît"], "correct": 2, "explanation": "De bons résultats attirent les investisseurs, ce qui fait monter le prix de l'action."},
                 ]
-            },
-            {
                 "id": 2, "title": "C'est quoi une crypto ?",
                 "content": "Une cryptomonnaie est une monnaie numérique décentralisée. Bitcoin (BTC) est la plus connue. Contrairement aux euros, personne ne contrôle les cryptos — elles fonctionnent sur une technologie appelée blockchain.",
                 "key_points": ["Monnaie numérique décentralisée", "Blockchain = registre transparent", "Bitcoin = première crypto, créée en 2009"],
@@ -50,17 +46,18 @@ MODULES = [
                 ]
             },
             {
+            },
+        ]
+    },
+    {
                 "id": 3, "title": "C'est quoi un ETF ?",
                 "content": "Un ETF (Exchange Traded Fund) est un panier d'actifs. SPY est un ETF qui contient les 500 plus grandes entreprises américaines. Au lieu d'acheter 500 actions, tu achètes un seul ETF ! C'est simple et diversifié.",
                 "key_points": ["ETF = panier d'actifs", "Diversification automatique", "SPY = S&P 500, QQQ = NASDAQ"],
                 "quiz": [
                     {"question": "Quel est l'avantage principal d'un ETF ?", "answers": ["Des rendements garantis", "La diversification en un seul achat", "Il ne peut pas baisser", "Il est gratuit"], "correct": 1, "explanation": "Un ETF permet de s'exposer à de nombreux actifs en un seul achat, réduisant le risque."},
                 ]
-            },
-        ]
-    },
-    {
-        "id": 2, "name": "Acheter & Vendre", "emoji": "📈",
+",
+        "id": 2, "name": "Acheter & Vendre", "emoji": "
         "level": "Débutant", "free": True,
         "desc": "Types d'ordres, market cap, volume",
         "lessons": [
@@ -77,13 +74,13 @@ MODULES = [
                 "content": "La capitalisation boursière (market cap) = prix de l'action × nombre d'actions. Apple vaut 3 000 milliards de dollars ! Une grande market cap = entreprise établie. Une petite market cap = plus risqué mais plus de potentiel.",
                 "key_points": ["Market cap = prix × quantité", "Large cap = stable", "Small cap = risqué mais potentiel"],
                 "quiz": [
-                    {"question": "Comment calcule-t-on la market cap ?", "answers": ["Prix + nombre d'actions", "Prix × nombre d'actions", "Prix / nombre d'actions", "Prix - dettes"], "correct": 1, "explanation": "Market cap = prix de l'action × nombre total d'actions en circulation."},
+                    {"question": "Comment calcule-t-on la market cap ?", "answers": ["Prix + nombre d'actions", "Prix 
                 ]
             },
         ]
     },
     {
-        "id": 3, "name": "Analyse Technique", "emoji": "🕯️",
+        "id": 3, "name": "Analyse Technique", "emoji": " ",
         "level": "Intermédiaire", "free": False,
         "desc": "Chandeliers, supports, résistances",
         "lessons": [
@@ -98,11 +95,12 @@ MODULES = [
         ]
     },
     {
-        "id": 4, "name": "Indicateurs IA", "emoji": "🧠",
+        "id": 4, "name": "Indicateurs IA", "emoji": "
         "level": "Avancé", "free": False,
         "desc": "RSI, MACD, Bollinger Bands",
         "lessons": [
             {
+",
                 "id": 7, "title": "Le RSI expliqué",
                 "content": "Le RSI (Relative Strength Index) oscille entre 0 et 100. En dessous de 30 = l'actif est survendu (signal d'achat possible). Au-dessus de 70 = l'actif est suracheté (signal de vente possible).",
                 "key_points": ["RSI < 30 = survendu = signal achat", "RSI > 70 = suracheté = signal vente", "RSI 50 = neutre"],
@@ -113,23 +111,21 @@ MODULES = [
         ]
     },
     {
-        "id": 5, "name": "Stratégies", "emoji": "⚡",
+    },
+]
+        "id": 5, "name": "Stratégies", "emoji": " ",
         "level": "Expert", "free": False,
         "desc": "DCA, swing trading, gestion du risque",
         "lessons": [
             {
                 "id": 8, "title": "Le DCA — Dollar Cost Averaging",
-                "content": "Le DCA consiste à investir un montant fixe régulièrement (ex: 50€/mois en Bitcoin). Tu achètes plus quand c'est bas, moins quand c'est haut. Sur le long terme, c'est une des stratégies les plus efficaces.",
+                "content": "Le DCA consiste à investir un montant fixe régulièrement (ex: 50€
                 "key_points": ["Investir un montant fixe régulièrement", "Réduit l'impact de la volatilité", "Idéal pour les débutants"],
                 "quiz": [
                     {"question": "Quel est l'avantage du DCA ?", "answers": ["Garantit des profits", "Réduit l'impact de la volatilité", "Évite toutes les pertes", "Nécessite peu de capital"], "correct": 1, "explanation": "Le DCA lisse le prix d'achat moyen et réduit l'impact des fluctuations de marché."},
                 ]
             },
         ]
-    },
-]
-
-
 # ══════════════════════════════════════════
 #  DATABASE
 # ══════════════════════════════════════════
@@ -160,15 +156,11 @@ def init_db():
     conn.commit()
     conn.close()
     log.info("DB initialisee")
-
 def get_db():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
-
 def hash_pw(pw): return hashlib.sha256(pw.encode()).hexdigest()
-
-
 # ══════════════════════════════════════════
 #  AUTH
 # ══════════════════════════════════════════
@@ -178,41 +170,32 @@ def login_required(f):
         if "uid" not in session: return redirect("/login")
         return f(*a, **k)
     return d
-
-
 # ══════════════════════════════════════════
 #  PAGES
 # ══════════════════════════════════════════
 def read(f):
     return open(f, encoding="utf-8").read()
-
 @app.route("/")
 def index():
     return read("landing.html")
-
 @app.route("/login")
 def login_page():
     return read("login.html")
-
 @app.route("/register")
 def register_page():
     return read("register.html")
-
 @app.route("/pricing")
 @login_required
 def pricing_page():
     return read("pricing.html").replace("__PK__", STRIPE_PUBLISHABLE_KEY)
-
 @app.route("/app")
 @login_required
 def app_page():
     return read("app.html")
-
 @app.route("/lesson/<int:lid>")
 @login_required
 def lesson_page(lid):
     return read("lesson.html")
-
 @app.route("/payment-success")
 @login_required
 def payment_success():
@@ -221,8 +204,6 @@ def payment_success():
     db.commit()
     db.close()
     return redirect("/app")
-
-
 # ══════════════════════════════════════════
 #  API AUTH
 # ══════════════════════════════════════════
@@ -249,7 +230,6 @@ def api_register():
     session["email"] = email
     session["name"]  = name
     return jsonify({"success": True, "redirect": "/app"})
-
 @app.route("/api/login", methods=["POST"])
 def api_login():
     d = request.get_json()
@@ -264,12 +244,10 @@ def api_login():
     session["email"] = u["email"]
     session["name"]  = u["name"]
     return jsonify({"success": True, "redirect": "/app"})
-
 @app.route("/api/logout")
 def api_logout():
     session.clear()
     return redirect("/login")
-
 @app.route("/api/me")
 @login_required
 def api_me():
@@ -277,9 +255,9 @@ def api_me():
     u  = db.execute("SELECT id,email,name,plan,xp,streak,last_lesson_date FROM users WHERE id=?",
                     (session["uid"],)).fetchone()
     db.close()
+    if u is None:
+        return jsonify({"error": "User not found"}), 404
     return jsonify(dict(u))
-
-
 # ══════════════════════════════════════════
 #  API STRIPE
 # ══════════════════════════════════════════
@@ -306,7 +284,6 @@ def api_checkout():
         return jsonify({"checkout_url": result["url"]})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 @app.route("/api/webhook", methods=["POST"])
 def api_webhook():
     import stripe
@@ -327,8 +304,6 @@ def api_webhook():
             db.commit()
             db.close()
     return jsonify({"ok": True})
-
-
 # ══════════════════════════════════════════
 #  API LEARNING
 # ══════════════════════════════════════════
@@ -341,7 +316,7 @@ def api_modules():
                            (session["uid"],)).fetchall()
     db.close()
     completed_ids = {r["lesson_id"] for r in completed}
-    is_pro = u["plan"] == "pro"
+    is_pro = (u is not None and u["plan"] == "pro")
     result = []
     for m in MODULES:
         lessons_done = sum(1 for l in m["lessons"] if l["id"] in completed_ids)
@@ -354,14 +329,13 @@ def api_modules():
             "pct": int(lessons_done / max(1, len(m["lessons"])) * 100),
         })
     return jsonify(result)
-
 @app.route("/api/lesson/<int:lid>")
 @login_required
 def api_lesson(lid):
     db = get_db()
     u  = db.execute("SELECT plan FROM users WHERE id=?", (session["uid"],)).fetchone()
     db.close()
-    is_pro = u["plan"] == "pro"
+    is_pro = (u is not None and u["plan"] == "pro")
     for m in MODULES:
         for l in m["lessons"]:
             if l["id"] == lid:
@@ -369,7 +343,6 @@ def api_lesson(lid):
                     return jsonify({"error": "Abonnement Pro requis"}), 403
                 return jsonify({**l, "module_name": m["name"], "module_emoji": m["emoji"]})
     return jsonify({"error": "Leçon introuvable"}), 404
-
 @app.route("/api/complete-lesson", methods=["POST"])
 @login_required
 def api_complete_lesson():
@@ -378,18 +351,15 @@ def api_complete_lesson():
     score   = d.get("score", 100)
     uid     = session["uid"]
     xp_gain = max(10, int(score / 100 * 50))
-
     db = get_db()
     # Enregistre la progression
     db.execute("""INSERT OR REPLACE INTO progress (user_id, lesson_id, completed, score, completed_at)
                   VALUES (?,?,1,?,?)""", (uid, lid, score, datetime.now().isoformat()))
-
     # Met à jour XP et streak
     u         = db.execute("SELECT * FROM users WHERE id=?", (uid,)).fetchone()
     today     = date.today().isoformat()
     yesterday = (date.today() - timedelta(days=1)).isoformat()
     last      = u["last_lesson_date"]
-
     new_streak = u["streak"]
     if last == today:
         new_streak = u["streak"]  # Déjà compté aujourd'hui
@@ -397,18 +367,15 @@ def api_complete_lesson():
         new_streak = u["streak"] + 1  # Streak continue
     else:
         new_streak = 1  # Streak cassé, repart à 1
-
     new_xp = u["xp"] + xp_gain
     db.execute("UPDATE users SET xp=?, streak=?, last_lesson_date=? WHERE id=?",
                (new_xp, new_streak, today, uid))
     db.commit()
     db.close()
-
     return jsonify({
         "success": True, "xp_gained": xp_gain,
         "new_xp": new_xp, "streak": new_streak,
     })
-
 @app.route("/api/progress")
 @login_required
 def api_progress():
@@ -417,7 +384,6 @@ def api_progress():
                       (session["uid"],)).fetchall()
     db.close()
     return jsonify([dict(r) for r in rows])
-
 @app.route("/api/leaderboard")
 @login_required
 def api_leaderboard():
@@ -425,12 +391,9 @@ def api_leaderboard():
     rows = db.execute("SELECT name, xp, streak FROM users ORDER BY xp DESC LIMIT 10").fetchall()
     db.close()
     return jsonify([dict(r) for r in rows])
-
-
 # ══════════════════════════════════════════
 with app.app_context():
     init_db()
-
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
