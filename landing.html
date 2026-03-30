@@ -228,7 +228,7 @@ footer{position:relative;z-index:1;border-top:2px solid var(--border);padding:32
     <h1>Apprends le trading<br>en <span class="hl">5 min/jour</span></h1>
     <p>Des leçons courtes et ludiques sur la crypto, les actions et les ETFs. Comme Duolingo, mais pour devenir un vrai trader.</p>
     <div class="hero-btns">
-      <a href="/register" class="btn-main">🚀 Commencer gratuitement</a>
+      <a href="/register" class="btn-main" style="cursor:pointer">🚀 Commencer gratuitement</a>
       <a href="#leçon" class="btn-ghost">Voir une leçon</a>
     </div>
     <div class="social">
@@ -511,10 +511,12 @@ var obs = new IntersectionObserver(function(entries){
 },{threshold:0.1});
 document.querySelectorAll(".reveal").forEach(function(el){obs.observe(el);});
 
-// Smooth scroll
+// Smooth scroll - only for hash links
 document.querySelectorAll('a[href^="#"]').forEach(function(a){
   a.addEventListener("click",function(e){
-    var t=document.querySelector(a.getAttribute("href"));
+    var href = a.getAttribute("href");
+    if(href === "#") return;
+    var t=document.querySelector(href);
     if(t){e.preventDefault();t.scrollIntoView({behavior:"smooth"});}
   });
 });
@@ -527,4 +529,5 @@ window.addEventListener("load", function(){
 </script>
 </body>
 </html>
+
 
