@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>CryptoLearn — Mes modules</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lilita+One&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4ff;color:#1a1f36;min-height:100vh}
+nav{background:#fff;border-bottom:3px solid #e2e8f0;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.logo{font-family:'Lilita One',cursive;font-size:20px;color:#6366f1}
+.nav-stats{display:flex;align-items:center;gap:20px}
+.stat-chip{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:800;color:#1a1f36}
+.stat-chip .icon{font-size:18px}
+.streak-chip{color:#f59e0b}
+.xp-chip{color:#6366f1}
+.logout{font-size:13px;color:#94a3b8;text-decoration:none;cursor:pointer}
+.logout:hover{color:#6366f1}
+
+.main{max-width:680px;margin:0 auto;padding:28px 16px}
+
+/* WELCOME */
+.welcome-card{background:linear-gradient(135deg,#6366f1,#4f46e5);border-radius:20px;padding:24px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden}
+.welcome-card::after{content:'📊';position:absolute;right:-10px;bottom:-10px;font-size:80px;opacity:0.15}
+.welcome-name{font-size:22px;font-weight:900;margin-bottom:4px}
+.welcome-sub{font-size:14px;font-weight:700;opacity:0.8;margin-bottom:16px}
+.xp-bar-wrap{}
+.xp-bar-label{font-size:12px;font-weight:800;opacity:0.8;margin-bottom:6px;display:flex;justify-content:space-between}
+.xp-track{background:rgba(255,255,255,0.25);border-radius:100px;height:12px;overflow:hidden}
+.xp-fill{height:100%;background:#fff;border-radius:100px;transition:width 1s ease;width:0%}
+
+/* MODULES */
+.section-title{font-family:'Lilita One',cursive;font-size:18px;color:#1a1f36;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.modules-list{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.module-row{background:#fff;border:3px solid #e2e8f0;border-radius:18px;padding:18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all 0.2s;text-decoration:none;color:inherit}
+.module-row:hover:not(.locked){border-color:#6366f1;transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,0.15)}
+.module-row.locked{opacity:0.6;cursor:not-allowed}
+.module-row.completed{border-color:#22c55e}
+.mod-emoji{font-size:36px;flex-shrink:0}
+.mod-info{flex:1}
+.mod-name{font-size:16px;font-weight:900;color:#1a1f36;margin-bottom:2px}
+.mod-desc{font-size:12px;font-weight:700;color:#64748b;margin-bottom:8px}
+.mod-progress{display:flex;align-items:center;gap:8px}
+.mod-bar{flex:1;background:#e2e8f0;border-radius:100px;height:8px;overflow:hidden}
+.mod-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,#6366f1,#818cf8);transition:width 0.8s ease}
+.mod-fill.done{background:linear-gradient(90deg,#22c55e,#4ade80)}
+.mod-pct{font-size:12px;font-weight:800;color:#6366f1;white-space:nowrap}
+.mod-pct.done{color:#22c55e}
+.mod-right{text-align:right;flex-shrink:0}
+.mod-lessons{font-size:11px;font-weight:800;color:#94a3b8;margin-bottom:4px}
+.mod-badge{font-size:10px;font-weight:900;padding:3px 10px;border-radius:100px}
+.badge-free{background:#dcfce7;color:#15803d}
+.badge-pro{background:#ede9fe;color:#6d28d9}
+.badge-done{background:#dcfce7;color:#15803d}
+.lock-icon{font-size:20px;margin-left:4px}
+
+/* LEADERBOARD */
+.leaderboard{background:#fff;border:3px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:24px}
+.lb-title{font-family:'Lilita One',cursive;font-size:16px;color:#1a1f36;margin-bottom:14px}
+.lb-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #f1f5f9}
+.lb-row:last-child{border:none}
+.lb-rank{font-size:16px;font-weight:900;width:28px;text-align:center;color:#94a3b8}
+.lb-rank.top{color:#f59e0b}
+.lb-name{flex:1;font-size:14px;font-weight:800}
+.lb-xp{font-size:13px;font-weight:900;color:#6366f1}
+.lb-streak{font-size:13px;font-weight:800;color:#f59e0b}
+
+/* UPGRADE */
+.upgrade-banner{background:linear-gradient(135deg,#fef3c7,#fde68a);border:3px solid #f59e0b;border-radius:18px;padding:20px;text-align:center;margin-bottom:24px}
+.upgrade-title{font-family:'Lilita One',cursive;font-size:18px;color:#92400e;margin-bottom:6px}
+.upgrade-sub{font-size:13px;font-weight:700;color:#92400e;margin-bottom:14px}
+.btn-upgrade{background:#f59e0b;color:#fff;padding:12px 24px;border-radius:100px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.2s}
+.btn-upgrade:hover{background:#d97706;transform:translateY(-1px)}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);z-index:200;background:#1a1f36;color:#fff;padding:12px 20px;border-radius:100px;font-size:13px;font-weight:800;opacity:0;transition:all 0.4s;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.toast.ok{background:#22c55e}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">📊 CryptoLearn</div>
+  <div class="nav-stats">
+    <div class="stat-chip streak-chip"><span class="icon">🔥</span><span id="navStreak">0</span></div>
+    <div class="stat-chip xp-chip"><span class="icon">⚡</span><span id="navXp">0</span> XP</div>
+    <a class="logout" href="/api/logout">Quitter</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- WELCOME -->
+  <div class="welcome-card">
+    <div class="welcome-name" id="welcomeName">Bonjour !</div>
+    <div class="welcome-sub" id="welcomeSub">Continue ton apprentissage</div>
+    <div class="xp-bar-wrap">
+      <div class="xp-bar-label"><span>⚡ <span id="xpVal">0</span> XP</span><span>Niveau <span id="levelVal">1</span></span></div>
+      <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
+    </div>
+  </div>
+
+  <!-- UPGRADE BANNER (si free) -->
+  <div class="upgrade-banner" id="upgradeBanner" style="display:none">
+    <div class="upgrade-title">🔓 Débloque tout avec Pro</div>
+    <div class="upgrade-sub">120+ leçons · Simulations · Certificats — 4,99€/mois</div>
+    <a href="/pricing" class="btn-upgrade">Passer Pro maintenant 🚀</a>
+  </div>
+
+  <!-- MODULES -->
+  <div class="section-title">📚 Mes modules</div>
+  <div class="modules-list" id="modulesList">
+    <div style="text-align:center;padding:40px;color:#94a3b8">Chargement...</div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div class="section-title">🏆 Classement</div>
+  <div class="leaderboard">
+    <div id="lbContent"><div style="text-align:center;padding:20px;color:#94a3b8">Chargement...</div></div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+async function init() {
+  try {
+    var r = await fetch("/api/me");
+    var u = await r.json();
+    document.getElementById("welcomeName").textContent = "Bonjour " + (u.name || "") + " ! 👋";
+    document.getElementById("welcomeSub").textContent = u.streak > 0 ? "🔥 " + u.streak + " jours de suite — continue !" : "Commence ta premiere lecon aujourd'hui !";
+    document.getElementById("navStreak").textContent = u.streak || 0;
+    document.getElementById("navXp").textContent = u.xp || 0;
+    document.getElementById("xpVal").textContent = u.xp || 0;
+    var level = Math.floor((u.xp || 0) / 200) + 1;
+    var xpInLevel = (u.xp || 0) % 200;
+    document.getElementById("levelVal").textContent = level;
+    setTimeout(function(){ document.getElementById("xpFill").style.width = (xpInLevel / 200 * 100) + "%"; }, 300);
+    if (u.plan === "free") document.getElementById("upgradeBanner").style.display = "block";
+  } catch(e) {}
+  loadModules();
+  loadLeaderboard();
+}
+
+async function loadModules() {
+  try {
+    var r = await fetch("/api/modules");
+    var modules = await r.json();
+    var html = modules.map(function(m) {
+      var locked = m.locked;
+      var done   = m.pct === 100;
+      var badge  = m.free ? '<span class="mod-badge badge-free">GRATUIT</span>' : '<span class="mod-badge badge-pro">PRO</span>';
+      if (done) badge = '<span class="mod-badge badge-done">TERMINE ✓</span>';
+      var fillClass = done ? "mod-fill done" : "mod-fill";
+      var pctClass  = done ? "mod-pct done" : "mod-pct";
+      var href      = locked ? "#" : "/lesson/" + (m.id * 10 - 9);
+      var onclick   = locked ? "onclick=\"showToast('Debloque avec Pro !'); return false;\"" : "";
+      return "<a class='module-row" + (locked?" locked":"") + (done?" completed":"") + "' href='" + href + "' " + onclick + ">" +
+        "<div class='mod-emoji'>" + m.emoji + "</div>" +
+        "<div class='mod-info'>" +
+          "<div class='mod-name'>" + m.name + "</div>" +
+          "<div class='mod-desc'>" + m.desc + "</div>" +
+          "<div class='mod-progress'>" +
+            "<div class='mod-bar'><div class='" + fillClass + "' style='width:" + m.pct + "%'></div></div>" +
+            "<div class='" + pctClass + "'>" + m.pct + "%</div>" +
+          "</div>" +
+        "</div>" +
+        "<div class='mod-right'>" +
+          "<div class='mod-lessons'>" + m.completed_lessons + "/" + m.total_lessons + " lecons</div>" +
+          badge +
+        "</div>" +
+        (locked ? "<div class='lock-icon'>🔒</div>" : "") +
+        "</a>";
+    }).join("");
+    document.getElementById("modulesList").innerHTML = html;
+  } catch(e) {}
+}
+
+async function loadLeaderboard() {
+  try {
+    var r = await fetch("/api/leaderboard");
+    var rows = await r.json();
+    var medals = ["🥇","🥈","🥉"];
+    var html = rows.map(function(r2, i) {
+      var rankClass = i < 3 ? "lb-rank top" : "lb-rank";
+      var rank = i < 3 ? medals[i] : (i+1);
+      return "<div class='lb-row'>" +
+        "<div class='" + rankClass + "'>" + rank + "</div>" +
+        "<div class='lb-name'>" + (r2.name || "Anonyme") + "</div>" +
+        "<div class='lb-streak'>🔥 " + (r2.streak||0) + "</div>" +
+        "<div class='lb-xp'>⚡ " + (r2.xp||0) + " XP</div>" +
+        "</div>";
+    }).join("");
+    document.getElementById("lbContent").innerHTML = html || "<div style='text-align:center;padding:20px;color:#94a3b8'>Sois le premier !</div>";
+  } catch(e) {}
+}
+
+function showToast(msg, type) {
+  var t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = "toast " + (type||"") + " show";
+  clearTimeout(window._tt);
+  window._tt = setTimeout(function(){ t.classList.remove("show"); }, 3000);
+}
+
+init();
+</script>
+</body>
+</html>

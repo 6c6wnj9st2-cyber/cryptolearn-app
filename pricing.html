@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoLearn — Abonnement Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Manrope',sans-serif;background:#0a0f1e;color:#e2e8f0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
+.logo{font-size:20px;font-weight:800;margin-bottom:40px;display:flex;align-items:center;gap:8px}
+.logo-icon{width:26px;height:26px;background:linear-gradient(135deg,#3b82f6,#10b981);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px}
+h1{font-family:'Fraunces',serif;font-size:32px;font-weight:900;text-align:center;margin-bottom:10px;letter-spacing:-0.5px}
+.sub{text-align:center;color:#64748b;margin-bottom:48px;font-size:15px}
+.cards{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;max-width:760px}
+.card{background:#111827;border:1.5px solid #1f2d47;border-radius:16px;padding:30px 24px;width:220px;transition:all 0.2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.5)}
+.card.featured{border-color:#3b82f6;box-shadow:0 0 0 1px #3b82f6,0 16px 40px rgba(59,130,246,0.15)}
+.plan{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#64748b;margin-bottom:14px}
+.price{font-family:'Fraunces',serif;font-size:44px;font-weight:900;color:#e2e8f0;margin-bottom:4px;line-height:1}
+.per{font-size:13px;color:#64748b;margin-bottom:22px}
+.feats{list-style:none;margin-bottom:24px}
+.feats li{font-size:13px;color:#94a3b8;padding:6px 0;border-bottom:1px solid #1f2d47;display:flex;align-items:center;gap:8px}
+.feats li:last-child{border:none}
+.feats li::before{content:"✓";color:#10b981;font-weight:700;font-size:11px;flex-shrink:0}
+.btn{width:100%;padding:12px;border-radius:8px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;border:none}
+.btn-main{background:#3b82f6;color:#fff}.btn-main:hover{background:#2563eb}
+.btn-ghost{background:transparent;color:#e2e8f0;border:1px solid #1f2d47}.btn-ghost:hover{border-color:#3b82f6;color:#3b82f6}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+.msg{margin-top:16px;padding:12px 20px;border-radius:8px;font-size:13px;display:none;text-align:center}
+.error{background:rgba(239,68,68,0.1);color:#ef4444;border:1px solid rgba(239,68,68,0.2)}
+.guarantee{margin-top:24px;font-size:12px;color:#64748b;text-align:center}
+</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#3b82f6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CryptoLearn">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+</head>
+<body>
+<div class="logo"><div class="logo-icon">📊</div>CryptoLearn</div>
+<h1>Passe a Pro</h1>
+<p class="sub">Actifs illimites · Prix temps reel · Rapport hebdomadaire</p>
+<div class="cards">
+  <div class="card">
+    <div class="plan">Gratuit</div>
+    <div class="price">0€</div>
+    <div class="per">pour toujours</div>
+    <ul class="feats">
+      <li>3 actifs maximum</li>
+      <li>Prix toutes les heures</li>
+      <li>Dashboard basique</li>
+    </ul>
+    <button class="btn btn-ghost" onclick="window.location.href='/dashboard'">Continuer gratuitement</button>
+  </div>
+  <div class="card featured">
+    <div class="plan">Pro ⭐</div>
+    <div class="price">4,99€</div>
+    <div class="per">par mois · sans engagement</div>
+    <ul class="feats">
+      <li>Actifs illimites</li>
+      <li>Prix en temps reel</li>
+      <li>Rapport email hebdo</li>
+      <li>Alertes prix</li>
+      <li>Support prioritaire</li>
+    </ul>
+    <button class="btn btn-main" id="btnPro" onclick="subscribe()">Passer Pro →</button>
+  </div>
+</div>
+<div class="msg error" id="err"></div>
+<p class="guarantee">Paiement securise par Stripe · Annulation a tout moment</p>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+async function subscribe() {
+  var btn=document.getElementById("btnPro"),err=document.getElementById("err");
+  err.style.display="none";btn.disabled=true;btn.textContent="Redirection...";
+  try {
+    var r=await fetch("/api/create-checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"});
+    var d=await r.json();
+    if(d.checkout_url){window.location.href=d.checkout_url;}
+    else{err.textContent=d.error||"Erreur";err.style.display="block";btn.disabled=false;btn.textContent="Passer Pro →";}
+  } catch(ex){err.textContent="Erreur reseau";err.style.display="block";btn.disabled=false;btn.textContent="Passer Pro →";}
+}
+</script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").then(function(){console.log("SW OK");});}</script>
+</body>
+</html>

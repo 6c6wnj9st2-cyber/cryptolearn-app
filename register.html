@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PortfolioTrack — Inscription</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Manrope',sans-serif;background:#0a0f1e;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:#111827;border:1px solid #1f2d47;border-radius:20px;padding:44px 36px;width:100%;max-width:400px;box-shadow:0 24px 80px rgba(0,0,0,0.5)}
+.logo{font-size:20px;font-weight:800;color:#e2e8f0;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.logo-icon{width:26px;height:26px;background:linear-gradient(135deg,#3b82f6,#10b981);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.sub{font-size:13px;color:#64748b;margin-bottom:32px}
+h1{font-size:22px;font-weight:800;color:#e2e8f0;margin-bottom:24px}
+label{display:block;font-size:12px;font-weight:600;color:#64748b;margin-bottom:6px;letter-spacing:0.5px}
+input{width:100%;padding:12px 14px;background:#0a0f1e;border:1px solid #1f2d47;border-radius:9px;color:#e2e8f0;font-family:'Manrope',sans-serif;font-size:14px;outline:none;margin-bottom:16px;transition:border-color 0.2s}
+input:focus{border-color:#3b82f6}
+.btn{width:100%;padding:13px;background:#3b82f6;color:#fff;border:none;border-radius:9px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s}
+.btn:hover{background:#2563eb;transform:translateY(-1px)}
+.btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.switch{text-align:center;margin-top:20px;font-size:13px;color:#64748b}
+.switch a{color:#3b82f6;text-decoration:none;font-weight:600}
+.msg{padding:11px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;display:none}
+.error{background:rgba(239,68,68,0.1);color:#ef4444;border:1px solid rgba(239,68,68,0.2)}
+.success{background:rgba(16,185,129,0.1);color:#10b981;border:1px solid rgba(16,185,129,0.2)}
+</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#3b82f6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PortfolioTrack">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+</head>
+<body>
+<div class="card">
+  <div class="logo"><div class="logo-icon">📊</div>PortfolioTrack</div>
+  <div class="sub">Gratuit pour commencer — aucune carte requise</div>
+  <h1>Creer mon compte</h1>
+  <div class="msg error" id="err"></div>
+  <div class="msg success" id="ok"></div>
+  <form id="f">
+    <label>Prenom et nom</label>
+    <input type="text" id="name" placeholder="Jean Dupont" required>
+    <label>Email</label>
+    <input type="email" id="email" placeholder="jean@exemple.com" required>
+    <label>Mot de passe</label>
+    <input type="password" id="pw" placeholder="Minimum 6 caracteres" required>
+    <button class="btn" id="btn" type="submit">Creer mon compte gratuit</button>
+  </form>
+  <div class="switch">Deja un compte ? <a href="/login">Se connecter</a></div>
+</div>
+<script>
+document.getElementById("f").onsubmit = async function(e) {
+  e.preventDefault();
+  var btn=document.getElementById("btn"),err=document.getElementById("err"),ok=document.getElementById("ok");
+  err.style.display="none";ok.style.display="none";
+  btn.disabled=true;btn.textContent="Creation...";
+  try {
+    var r=await fetch("/api/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:document.getElementById("name").value,email:document.getElementById("email").value,password:document.getElementById("pw").value})});
+    var d=await r.json();
+    if(d.error){err.textContent=d.error;err.style.display="block";btn.disabled=false;btn.textContent="Creer mon compte gratuit";}
+    else{ok.textContent="Compte cree !";ok.style.display="block";setTimeout(function(){window.location.href=d.redirect;},600);}
+  } catch(ex){err.textContent="Erreur reseau";err.style.display="block";btn.disabled=false;btn.textContent="Creer mon compte gratuit";}
+};
+</script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").then(function(){console.log("SW OK");});}</script>
+</body>
+</html>

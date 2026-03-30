@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoLearn — Apprends le trading en 5 min/jour</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lilita+One&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f4ff;
+  --white: #ffffff;
+  --ink: #1a1f36;
+  --ink2: #4a5568;
+  --muted: #94a3b8;
+  --border: #e2e8f0;
+  --accent: #6366f1;
+  --accent2: #818cf8;
+  --green: #22c55e;
+  --orange: #f59e0b;
+  --red: #ef4444;
+  --yellow: #fbbf24;
+  --pink: #ec4899;
+  --card: #ffffff;
+  --radius: 20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+
+/* BACKGROUND BLOBS */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 10% 20%,rgba(99,102,241,0.08) 0%,transparent 40%),
+    radial-gradient(circle at 90% 70%,rgba(34,197,94,0.07) 0%,transparent 40%),
+    radial-gradient(circle at 50% 50%,rgba(251,191,36,0.05) 0%,transparent 60%);
+  pointer-events:none;z-index:0;
+}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(240,244,255,0.92);backdrop-filter:blur(16px);border-bottom:2px solid var(--border);padding:0 48px;height:68px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Lilita One',cursive;font-size:24px;color:var(--accent);display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-emoji{font-size:28px;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:14px;font-weight:700;color:var(--ink2);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#fff;padding:10px 24px;border-radius:100px;font-size:14px;font-weight:800;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 14px rgba(99,102,241,0.3)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(99,102,241,0.4)}
+
+/* HERO */
+.hero{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:80px 48px 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.1);border:2px solid rgba(99,102,241,0.2);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:800;color:var(--accent);margin-bottom:20px}
+.fire{animation:shake 1s infinite}
+@keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-10deg)}75%{transform:rotate(10deg)}}
+.hero h1{font-family:'Lilita One',cursive;font-size:clamp(40px,5vw,64px);line-height:1.1;margin-bottom:16px;color:var(--ink)}
+.hero h1 .hl{color:var(--accent);position:relative}
+.hero h1 .hl::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:4px;background:var(--yellow);border-radius:2px}
+.hero p{font-size:17px;color:var(--ink2);line-height:1.7;margin-bottom:32px;font-weight:600;max-width:440px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.btn-main{background:var(--accent);color:#fff;padding:14px 28px;border-radius:100px;font-size:15px;font-weight:800;text-decoration:none;border:none;cursor:pointer;transition:all 0.25s;box-shadow:0 6px 20px rgba(99,102,241,0.35);display:inline-flex;align-items:center;gap:8px}
+.btn-main:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(99,102,241,0.45)}
+.btn-ghost{background:var(--white);color:var(--ink);padding:14px 28px;border-radius:100px;font-size:15px;font-weight:800;text-decoration:none;border:2px solid var(--border);cursor:pointer;transition:all 0.25s;display:inline-flex;align-items:center;gap:8px}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* SOCIAL PROOF */
+.social{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:700;color:var(--ink2)}
+.stars{color:var(--yellow);font-size:16px;letter-spacing:2px}
+.avatars{display:flex}
+.av{width:32px;height:32px;border-radius:50%;background:var(--border);border:3px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:15px;margin-left:-10px}
+.av:first-child{margin-left:0}
+
+/* HERO APP MOCKUP */
+.hero-app{background:var(--white);border-radius:28px;padding:0;overflow:hidden;box-shadow:0 32px 80px rgba(26,31,54,0.15),0 0 0 3px rgba(99,102,241,0.1);position:relative}
+.app-header{background:var(--accent);padding:18px 20px;display:flex;align-items:center;justify-content:space-between}
+.app-title-bar{font-family:'Lilita One',cursive;font-size:16px;color:#fff}
+.streak-badge{background:rgba(255,255,255,0.2);border-radius:100px;padding:4px 12px;font-size:12px;font-weight:800;color:#fff;display:flex;align-items:center;gap:4px}
+.app-body{padding:20px}
+.lesson-card{background:linear-gradient(135deg,#f0f4ff,#e8eeff);border:2px solid rgba(99,102,241,0.15);border-radius:16px;padding:16px;margin-bottom:14px}
+.lesson-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.lesson-question{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:14px;line-height:1.4}
+.answers{display:flex;flex-direction:column;gap:8px}
+.answer{padding:10px 14px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all 0.2s}
+.answer.correct{background:#dcfce7;border-color:#86efac;color:#15803d}
+.answer.wrong{background:#fee2e2;border-color:#fca5a5;color:#dc2626}
+.answer.normal{background:var(--white);border-color:var(--border);color:var(--ink2)}
+.answer.normal:hover{border-color:var(--accent);color:var(--accent)}
+.xp-bar{margin-top:14px}
+.xp-label{font-size:11px;font-weight:800;color:var(--muted);margin-bottom:6px;display:flex;justify-content:space-between}
+.xp-track{background:#e2e8f0;border-radius:100px;height:10px;overflow:hidden}
+.xp-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:65%;transition:width 1s ease}
+.modules-preview{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.module-pill{background:var(--bg);border:2px solid var(--border);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800}
+.module-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* SECTION */
+.section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:72px 48px}
+.section-center{text-align:center}
+.section-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,0.1);border:2px solid rgba(99,102,241,0.15);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:800;color:var(--accent);margin-bottom:14px;letter-spacing:0.5px}
+.section-title{font-family:'Lilita One',cursive;font-size:clamp(28px,3.5vw,44px);color:var(--ink);margin-bottom:14px;line-height:1.2}
+.section-sub{font-size:16px;color:var(--ink2);line-height:1.7;font-weight:600;max-width:520px;margin:0 auto}
+.sep{border:none;border-top:2px solid var(--border);margin:0 48px}
+
+/* STATS */
+.stats-bar{background:var(--white);border-top:2px solid var(--border);border-bottom:2px solid var(--border)}
+.stats-inner{max-width:1100px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:repeat(4,1fr)}
+.stat-item{padding:28px 20px;text-align:center;border-right:2px solid var(--border)}
+.stat-item:last-child{border:none}
+.stat-num{font-family:'Lilita One',cursive;font-size:38px;color:var(--accent);margin-bottom:4px}
+.stat-label{font-size:13px;font-weight:700;color:var(--ink2)}
+
+/* MODULES */
+.modules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.module-card{background:var(--white);border:2px solid var(--border);border-radius:var(--radius);padding:28px;transition:all 0.3s;cursor:pointer;position:relative;overflow:hidden}
+.module-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.module-card:nth-child(1)::before{background:var(--yellow)}
+.module-card:nth-child(2)::before{background:var(--green)}
+.module-card:nth-child(3)::before{background:var(--accent)}
+.module-card:nth-child(4)::before{background:var(--orange)}
+.module-card:nth-child(5)::before{background:var(--pink)}
+.module-card:nth-child(6)::before{background:var(--red)}
+.module-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(26,31,54,0.1)}
+.module-emoji{font-size:40px;margin-bottom:14px;display:block}
+.module-level{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.module-name{font-size:18px;font-weight:900;color:var(--ink);margin-bottom:8px}
+.module-desc{font-size:13px;color:var(--ink2);line-height:1.6;font-weight:600;margin-bottom:14px}
+.module-lessons{font-size:12px;font-weight:800;color:var(--accent)}
+.module-lock{position:absolute;top:16px;right:16px;font-size:18px;opacity:0.3}
+
+/* LESSON PREVIEW */
+.lesson-preview{background:var(--white);border:2px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:48px;box-shadow:0 8px 32px rgba(26,31,54,0.08)}
+.lp-header{background:var(--accent);padding:20px 28px;display:flex;align-items:center;justify-content:space-between}
+.lp-title{font-family:'Lilita One',cursive;font-size:18px;color:#fff}
+.lp-progress{display:flex;align-items:center;gap:10px}
+.lp-bar{background:rgba(255,255,255,0.3);border-radius:100px;height:8px;width:120px;overflow:hidden}
+.lp-fill{height:100%;background:#fff;border-radius:100px;width:40%;transition:width 1s ease}
+.lp-count{font-size:13px;font-weight:800;color:rgba(255,255,255,0.8)}
+.lp-body{padding:32px}
+.lp-question{font-size:20px;font-weight:900;color:var(--ink);margin-bottom:8px}
+.lp-sub{font-size:14px;color:var(--ink2);font-weight:600;margin-bottom:28px}
+.lp-answers{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.lp-answer{padding:16px 20px;border-radius:14px;font-size:14px;font-weight:800;cursor:pointer;border:2px solid var(--border);background:var(--bg);color:var(--ink);transition:all 0.2s;text-align:center}
+.lp-answer:hover{border-color:var(--accent);background:rgba(99,102,241,0.05);color:var(--accent)}
+.lp-answer.selected-ok{border-color:var(--green);background:#dcfce7;color:#15803d}
+.lp-answer.selected-bad{border-color:var(--red);background:#fee2e2;color:#dc2626}
+.feedback{background:var(--bg);border-radius:14px;padding:16px 20px;display:flex;align-items:flex-start;gap:12px;font-size:14px;font-weight:700}
+.feedback.ok{background:#dcfce7;color:#15803d}
+.feedback.bad{background:#fee2e2;color:#dc2626}
+.feedback-icon{font-size:20px;flex-shrink:0}
+
+/* PRICING */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.price-card{background:var(--white);border:2px solid var(--border);border-radius:var(--radius);padding:32px 24px;transition:all 0.3s;position:relative}
+.price-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(26,31,54,0.1)}
+.price-card.featured{border-color:var(--accent);box-shadow:0 0 0 4px rgba(99,102,241,0.1)}
+.price-pop{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--yellow);color:var(--ink);font-size:11px;font-weight:900;padding:5px 16px;border-radius:100px;white-space:nowrap}
+.price-emoji{font-size:36px;margin-bottom:14px;display:block}
+.price-name{font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.price-amount{font-family:'Lilita One',cursive;font-size:48px;color:var(--ink);margin-bottom:4px;line-height:1}
+.price-per{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:20px}
+.price-feats{list-style:none;margin-bottom:24px;display:flex;flex-direction:column;gap:10px}
+.price-feats li{font-size:13px;font-weight:700;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.price-feats li::before{content:'✓';color:var(--green);font-weight:900;font-size:14px}
+.btn-price{width:100%;padding:13px;border-radius:100px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;cursor:pointer;transition:all 0.25s;border:none}
+.btn-p-main{background:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(99,102,241,0.3)}
+.btn-p-main:hover{background:#4f46e5;transform:translateY(-1px)}
+.btn-p-ghost{background:transparent;color:var(--ink);border:2px solid var(--border)}
+.btn-p-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.testi-card{background:var(--white);border:2px solid var(--border);border-radius:var(--radius);padding:24px;transition:all 0.2s}
+.testi-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.testi-stars{font-size:16px;margin-bottom:12px;letter-spacing:2px}
+.testi-text{font-size:14px;font-weight:700;color:var(--ink2);line-height:1.7;margin-bottom:16px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-av{font-size:24px}
+.testi-name{font-size:14px;font-weight:900;color:var(--ink)}
+.testi-role{font-size:12px;font-weight:700;color:var(--muted)}
+
+/* CTA */
+.cta-section{position:relative;z-index:1;margin:0 48px 80px}
+.cta-box{background:linear-gradient(135deg,var(--accent),#4f46e5);border-radius:28px;padding:72px 48px;text-align:center;position:relative;overflow:hidden}
+.cta-box::before{content:'🎓';position:absolute;top:-20px;right:40px;font-size:120px;opacity:0.08}
+.cta-box::after{content:'📈';position:absolute;bottom:-20px;left:40px;font-size:100px;opacity:0.08}
+.cta-box h2{font-family:'Lilita One',cursive;font-size:clamp(28px,4vw,48px);color:#fff;margin-bottom:14px;position:relative}
+.cta-box p{font-size:16px;color:rgba(255,255,255,0.75);margin-bottom:36px;font-weight:700;position:relative}
+.btn-cta{background:#fff;color:var(--accent);padding:16px 36px;border-radius:100px;font-size:16px;font-weight:900;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all 0.25s;box-shadow:0 8px 24px rgba(0,0,0,0.2);position:relative}
+.btn-cta:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(0,0,0,0.25)}
+
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:2px solid var(--border);padding:32px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:13px;font-weight:700;color:var(--muted)}
+.footer-logo{font-family:'Lilita One',cursive;font-size:18px;color:var(--accent)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{color:var(--muted);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--accent)}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  nav{padding:0 16px}.nav-links{display:none}
+  .hero{grid-template-columns:1fr;padding:48px 20px;gap:36px}
+  .section{padding:56px 20px}.sep{margin:0 20px}
+  .modules-grid,.price-grid,.testi-grid{grid-template-columns:1fr}
+  .lp-answers,.stats-inner{grid-template-columns:1fr 1fr}
+  .cta-section{margin:0 20px 60px}.cta-box{padding:48px 20px}
+  footer{flex-direction:column;text-align:center;padding:24px 16px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo"><span class="logo-emoji">📊</span>CryptoLearn</a>
+  <div class="nav-links">
+    <a href="#modules">Modules</a>
+    <a href="#leçon">Aperçu</a>
+    <a href="#pricing">Tarifs</a>
+  </div>
+  <a href="#pricing" class="nav-cta">Commencer gratuitement 🚀</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero" style="position:relative;z-index:1">
+  <div>
+    <div class="hero-badge"><span class="fire">🔥</span>+50 000 apprenants actifs</div>
+    <h1>Apprends le trading<br>en <span class="hl">5 min/jour</span></h1>
+    <p>Des leçons courtes et ludiques sur la crypto, les actions et les ETFs. Comme Duolingo, mais pour devenir un vrai trader.</p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn-main">🚀 Commencer gratuitement</a>
+      <a href="#leçon" class="btn-ghost">Voir une leçon</a>
+    </div>
+    <div class="social">
+      <div class="avatars">
+        <div class="av">👨</div><div class="av">👩</div><div class="av">🧑</div><div class="av">👩</div><div class="av">👨</div>
+      </div>
+      <div>
+        <div class="stars">★★★★★</div>
+        <span>4.9/5 · 50 000+ apprenants</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-app">
+    <div class="app-header">
+      <div class="app-title-bar">📊 CryptoLearn</div>
+      <div class="streak-badge">🔥 12 jours de suite</div>
+    </div>
+    <div class="app-body">
+      <div class="lesson-card">
+        <div class="lesson-label">📚 Leçon 3 — Les chandeliers</div>
+        <div class="lesson-question">Qu'indique une bougie verte en trading ?</div>
+        <div class="answers">
+          <div class="answer correct">✅ Le prix a monté sur la période</div>
+          <div class="answer wrong">❌ Le prix a baissé sur la période</div>
+          <div class="answer normal" style="opacity:0.5">Le volume a augmenté</div>
+        </div>
+      </div>
+      <div class="xp-bar">
+        <div class="xp-label"><span>⚡ XP 650/1000</span><span>Niveau 3</span></div>
+        <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
+      </div>
+      <div style="margin-top:14px">
+        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:8px;letter-spacing:1px">TES MODULES</div>
+        <div class="modules-preview">
+          <div class="module-pill"><div class="module-dot" style="background:var(--green)"></div>Bases crypto ✓</div>
+          <div class="module-pill"><div class="module-dot" style="background:var(--accent)"></div>Chandeliers 🔓</div>
+          <div class="module-pill"><div class="module-dot" style="background:var(--muted)"></div>RSI & MACD 🔒</div>
+          <div class="module-pill"><div class="module-dot" style="background:var(--muted)"></div>Stratégies 🔒</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><div class="stat-num">50K+</div><div class="stat-label">Apprenants actifs</div></div>
+    <div class="stat-item reveal"><div class="stat-num">120+</div><div class="stat-label">Leçons disponibles</div></div>
+    <div class="stat-item reveal"><div class="stat-num">5 min</div><div class="stat-label">Par jour suffit</div></div>
+    <div class="stat-item reveal"><div class="stat-num">4.9★</div><div class="stat-label">Note moyenne</div></div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- MODULES -->
+<section class="section" id="modules">
+  <div class="section-tag reveal">📚 Curriculum</div>
+  <div class="section-title reveal">5 niveaux pour tout maîtriser</div>
+  <div class="section-sub reveal">De zéro à trader confirmé — à ton rythme, sur crypto, actions et ETFs.</div>
+  <div class="modules-grid">
+    <div class="module-card reveal">
+      <span class="module-emoji">🥚</span>
+      <div class="module-level">Niveau 1</div>
+      <div class="module-name">Les Bases</div>
+      <div class="module-desc">C'est quoi une action, une crypto, un ETF ? Comment fonctionne la bourse ? Vocabulaire essentiel.</div>
+      <div class="module-lessons">12 leçons · Gratuit</div>
+    </div>
+    <div class="module-card reveal">
+      <span class="module-emoji">📈</span>
+      <div class="module-level">Niveau 2</div>
+      <div class="module-name">Acheter & Vendre</div>
+      <div class="module-desc">Types d'ordres, carnet d'ordres, bid/ask, market cap, volume. Comment passer son premier trade.</div>
+      <div class="module-lessons">15 leçons · Gratuit</div>
+    </div>
+    <div class="module-card reveal">
+      <span class="module-lock">🔒</span>
+      <span class="module-emoji">🕯️</span>
+      <div class="module-level">Niveau 3</div>
+      <div class="module-name">Analyse Technique</div>
+      <div class="module-desc">Chandeliers japonais, supports, résistances, tendances. Lire un graphique comme un pro.</div>
+      <div class="module-lessons">20 leçons · Pro</div>
+    </div>
+    <div class="module-card reveal">
+      <span class="module-lock">🔒</span>
+      <span class="module-emoji">🧠</span>
+      <div class="module-level">Niveau 4</div>
+      <div class="module-name">Indicateurs IA</div>
+      <div class="module-desc">RSI, MACD, Bollinger Bands, EMA. Les indicateurs utilisés par les robots de trading.</div>
+      <div class="module-lessons">18 leçons · Pro</div>
+    </div>
+    <div class="module-card reveal">
+      <span class="module-lock">🔒</span>
+      <span class="module-emoji">⚡</span>
+      <div class="module-level">Niveau 5</div>
+      <div class="module-name">Stratégies Avancées</div>
+      <div class="module-desc">DCA, swing trading, scalping, gestion du risque, position sizing. Tradez comme un professionnel.</div>
+      <div class="module-lessons">22 leçons · Pro</div>
+    </div>
+    <div class="module-card reveal">
+      <span class="module-lock">🔒</span>
+      <span class="module-emoji">🤖</span>
+      <div class="module-level">Bonus</div>
+      <div class="module-name">Trading Algorithmique</div>
+      <div class="module-desc">Comment fonctionnent les bots de trading, backtesting, automatisation. Le futur du trading.</div>
+      <div class="module-lessons">10 leçons · Pro</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- LESSON PREVIEW -->
+<section class="section" id="leçon">
+  <div class="section-tag reveal">🎮 Interactif</div>
+  <div class="section-title reveal">Essaie une vraie leçon</div>
+  <div class="section-sub reveal">Clique sur une réponse pour voir comment ça fonctionne.</div>
+  <div class="lesson-preview reveal">
+    <div class="lp-header">
+      <div class="lp-title">📊 Leçon : Le RSI</div>
+      <div class="lp-progress">
+        <div class="lp-bar"><div class="lp-fill" id="lpFill"></div></div>
+        <div class="lp-count" id="lpCount">2/5</div>
+      </div>
+    </div>
+    <div class="lp-body">
+      <div class="lp-question" id="lpQ">Qu'est-ce que le RSI (Relative Strength Index) ?</div>
+      <div class="lp-sub" id="lpSub">Choisis la bonne réponse parmi les 4 options.</div>
+      <div class="lp-answers" id="lpAnswers">
+        <div class="lp-answer" onclick="answer(this,false)">Un indicateur de volume</div>
+        <div class="lp-answer" onclick="answer(this,true)">Un indicateur de force relative (0-100)</div>
+        <div class="lp-answer" onclick="answer(this,false)">Le prix moyen sur 14 jours</div>
+        <div class="lp-answer" onclick="answer(this,false)">La capitalisation boursière</div>
+      </div>
+      <div class="feedback" id="feedback" style="display:none">
+        <span class="feedback-icon" id="fbIcon"></span>
+        <span id="fbText"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- PRICING -->
+<section class="section section-center" id="pricing">
+  <div class="section-tag reveal">💰 Tarifs</div>
+  <div class="section-title reveal">Commence gratuitement</div>
+  <div class="section-sub reveal">Les 2 premiers modules sont gratuits. Débloque tout avec Pro.</div>
+  <div class="price-grid reveal">
+    <div class="price-card">
+      <span class="price-emoji">🥚</span>
+      <div class="price-name">Gratuit</div>
+      <div class="price-amount">0€</div>
+      <div class="price-per">pour toujours</div>
+      <ul class="price-feats">
+        <li>Modules 1 & 2 complets</li>
+        <li>27 leçons disponibles</li>
+        <li>Quiz & exercices</li>
+        <li>Streak quotidien</li>
+      </ul>
+      <button class="btn-price btn-p-ghost">Commencer gratuitement</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-pop">🔥 Le plus populaire</div>
+      <span class="price-emoji">🚀</span>
+      <div class="price-name">Pro</div>
+      <div class="price-amount">4,99€</div>
+      <div class="price-per">par mois · sans engagement</div>
+      <ul class="price-feats">
+        <li>Tous les modules (120+ leçons)</li>
+        <li>Simulations de trades réels</li>
+        <li>Certificats de completion</li>
+        <li>Quiz avancés & challenges</li>
+        <li>Accès hors ligne</li>
+        <li>Support prioritaire</li>
+      </ul>
+      <button class="btn-price btn-p-main">Démarrer l'essai gratuit 🎉</button>
+    </div>
+    <div class="price-card">
+      <span class="price-emoji">🏫</span>
+      <div class="price-name">Équipe / École</div>
+      <div class="price-amount">9,99€</div>
+      <div class="price-per">par utilisateur/mois</div>
+      <ul class="price-feats">
+        <li>Tout le plan Pro</li>
+        <li>Tableau de bord admin</li>
+        <li>Suivi des progrès d'équipe</li>
+        <li>Modules personnalisés</li>
+        <li>Facturation centralisée</li>
+      </ul>
+      <button class="btn-price btn-p-ghost">Nous contacter</button>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- TESTIMONIALS -->
+<section class="section section-center">
+  <div class="section-tag reveal">💬 Avis</div>
+  <div class="section-title reveal">Ils ont appris avec CryptoLearn</div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"J'avais peur de la crypto, je ne comprenais rien. En 3 semaines de CryptoLearn, j'ai fait mon premier vrai achat de Bitcoin avec confiance."</div>
+      <div class="testi-author"><div class="testi-av">👩</div><div><div class="testi-name">Marie D.</div><div class="testi-role">Infirmière, 34 ans</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"Les leçons de 5 minutes le matin dans le métro — parfait. J'ai appris le RSI, le MACD, et maintenant j'analyse mes trades moi-même."</div>
+      <div class="testi-author"><div class="testi-av">👨</div><div><div class="testi-name">Lucas M.</div><div class="testi-role">Étudiant, 22 ans</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"Le module sur les stratégies avancées m'a permis de comprendre les bots de trading. Je gère mon portefeuille avec une vraie méthode maintenant."</div>
+      <div class="testi-author"><div class="testi-av">🧑</div><div><div class="testi-name">Antoine B.</div><div class="testi-role">Entrepreneur, 29 ans</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section reveal">
+  <div class="cta-box">
+    <h2>Prêt à devenir un trader ?</h2>
+    <p>Rejoins 50 000 apprenants. 5 minutes par jour, et tu changes ta vie financière.</p>
+    <a href="#pricing" class="btn-cta">🚀 Commencer gratuitement maintenant</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">📊 CryptoLearn</div>
+  <div class="footer-links">
+    <a href="#modules">Modules</a>
+    <a href="#pricing">Tarifs</a>
+    <a href="#">Mentions légales</a>
+    <a href="#">Contact</a>
+  </div>
+  <div>© 2024 CryptoLearn · Tous droits réservés</div>
+</footer>
+
+<script>
+// XP bar animation
+setTimeout(function(){
+  document.getElementById("xpFill").style.width = "65%";
+}, 500);
+
+// Lesson preview interaction
+var answered = false;
+function answer(el, correct) {
+  if (answered) return;
+  answered = true;
+  var answers = document.querySelectorAll(".lp-answer");
+  answers.forEach(function(a){ a.style.pointerEvents = "none"; });
+  var fb = document.getElementById("feedback");
+  var fbIcon = document.getElementById("fbIcon");
+  var fbText = document.getElementById("fbText");
+  if (correct) {
+    el.classList.add("selected-ok");
+    fb.className = "feedback ok";
+    fbIcon.textContent = "🎉";
+    fbText.textContent = "Excellent ! Le RSI mesure la force relative d'un actif sur une échelle de 0 à 100. En dessous de 30 = survendu (signal d'achat), au-dessus de 70 = suracheté (signal de vente).";
+    document.getElementById("lpFill").style.width = "60%";
+    document.getElementById("lpCount").textContent = "3/5";
+  } else {
+    el.classList.add("selected-bad");
+    document.querySelectorAll(".lp-answer")[1].classList.add("selected-ok");
+    fb.className = "feedback bad";
+    fbIcon.textContent = "💡";
+    fbText.textContent = "Pas tout à fait ! Le RSI est un indicateur de force relative qui oscille entre 0 et 100. Il permet de détecter les zones de surachat et de survente.";
+  }
+  fb.style.display = "flex";
+}
+
+// Reveal on scroll
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add("visible"); });
+},{threshold:0.1});
+document.querySelectorAll(".reveal").forEach(function(el){obs.observe(el);});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener("click",function(e){
+    var t=document.querySelector(a.getAttribute("href"));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:"smooth"});}
+  });
+});
+
+// Animate XP fill on load
+window.addEventListener("load", function(){
+  setTimeout(function(){ document.getElementById("xpFill").style.width="65%"; }, 800);
+  setTimeout(function(){ document.getElementById("lpFill").style.width="40%"; }, 1000);
+});
+</script>
+</body>
+</html>
