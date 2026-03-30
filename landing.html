@@ -215,8 +215,8 @@ footer{position:relative;z-index:1;border-top:2px solid var(--border);padding:32
   <a href="/" class="logo"><span class="logo-emoji">📊</span>CryptoLearn</a>
   <div class="nav-links">
     <a href="#modules">Modules</a>
-    <a href="#leçon">Aperçu</a>
-    <a href="#pricing">Tarifs</a>
+    <a href="#lecon">Aperçu</a>
+    <a href="/register">Tarifs</a>
   </div>
   <a href="/register" class="nav-cta">Commencer gratuitement 🚀</a>
 </nav>
@@ -229,7 +229,7 @@ footer{position:relative;z-index:1;border-top:2px solid var(--border);padding:32
     <p>Des leçons courtes et ludiques sur la crypto, les actions et les ETFs. Comme Duolingo, mais pour devenir un vrai trader.</p>
     <div class="hero-btns">
       <a href="/register" class="btn-main" style="cursor:pointer">🚀 Commencer gratuitement</a>
-      <a href="#leçon" class="btn-ghost">Voir une leçon</a>
+      <a href="#lecon" class="btn-ghost">Voir une leçon</a>
     </div>
     <div class="social">
       <div class="avatars">
@@ -465,69 +465,23 @@ footer{position:relative;z-index:1;border-top:2px solid var(--border);padding:32
   <div class="footer-logo">📊 CryptoLearn</div>
   <div class="footer-links">
     <a href="#modules">Modules</a>
-    <a href="#pricing">Tarifs</a>
+    <a href="/register">Tarifs</a>
     <a href="#">Mentions légales</a>
     <a href="#">Contact</a>
   </div>
   <div>© 2024 CryptoLearn · Tous droits réservés</div>
 </footer>
 
+
 <script>
-// XP bar animation
-setTimeout(function(){
-  document.getElementById("xpFill").style.width = "65%";
-}, 500);
-
-// Lesson preview interaction
-var answered = false;
-function answer(el, correct) {
-  if (answered) return;
-  answered = true;
-  var answers = document.querySelectorAll(".lp-answer");
-  answers.forEach(function(a){ a.style.pointerEvents = "none"; });
-  var fb = document.getElementById("feedback");
-  var fbIcon = document.getElementById("fbIcon");
-  var fbText = document.getElementById("fbText");
-  if (correct) {
-    el.classList.add("selected-ok");
-    fb.className = "feedback ok";
-    fbIcon.textContent = "🎉";
-    fbText.textContent = "Excellent ! Le RSI mesure la force relative d'un actif sur une échelle de 0 à 100. En dessous de 30 = survendu (signal d'achat), au-dessus de 70 = suracheté (signal de vente).";
-    document.getElementById("lpFill").style.width = "60%";
-    document.getElementById("lpCount").textContent = "3/5";
-  } else {
-    el.classList.add("selected-bad");
-    document.querySelectorAll(".lp-answer")[1].classList.add("selected-ok");
-    fb.className = "feedback bad";
-    fbIcon.textContent = "💡";
-    fbText.textContent = "Pas tout à fait ! Le RSI est un indicateur de force relative qui oscille entre 0 et 100. Il permet de détecter les zones de surachat et de survente.";
-  }
-  fb.style.display = "flex";
-}
-
-// Reveal on scroll
-var obs = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add("visible"); });
+// Reveal on scroll only
+var obs = new IntersectionObserver(function(e){
+  e.forEach(function(x){if(x.isIntersecting)x.target.classList.add("visible")});
 },{threshold:0.1});
-document.querySelectorAll(".reveal").forEach(function(el){obs.observe(el);});
-
-// Smooth scroll - only for hash links
-document.querySelectorAll('a[href^="#"]').forEach(function(a){
-  a.addEventListener("click",function(e){
-    var href = a.getAttribute("href");
-    if(href === "#") return;
-    var t=document.querySelector(href);
-    if(t){e.preventDefault();t.scrollIntoView({behavior:"smooth"});}
-  });
-});
-
-// Animate XP fill on load
-window.addEventListener("load", function(){
-  setTimeout(function(){ document.getElementById("xpFill").style.width="65%"; }, 800);
-  setTimeout(function(){ document.getElementById("lpFill").style.width="40%"; }, 1000);
-});
+document.querySelectorAll(".reveal").forEach(function(el){obs.observe(el)});
 </script>
 </body>
 </html>
+
 
 
