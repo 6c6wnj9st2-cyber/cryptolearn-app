@@ -3,25 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>CryptoLearn — Leçon</title>
+<title>CryptoLearn — Lecon</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lilita+One&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Nunito',sans-serif;background:#f0f4ff;color:#1a1f36;min-height:100vh}
-
-/* HEADER */
 .lesson-header{background:#fff;border-bottom:3px solid #e2e8f0;padding:0 20px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
-.btn-back{font-size:22px;cursor:pointer;text-decoration:none;color:#1a1f36;transition:transform 0.2s}
-.btn-back:hover{transform:scale(1.1)}
+.btn-back{font-size:22px;text-decoration:none;color:#1a1f36}
 .progress-wrap{flex:1;margin:0 20px}
 .progress-track{background:#e2e8f0;border-radius:100px;height:10px;overflow:hidden}
 .progress-fill{height:100%;background:linear-gradient(90deg,#6366f1,#818cf8);border-radius:100px;transition:width 0.5s ease;width:0%}
-.close-btn{font-size:22px;cursor:pointer;color:#94a3b8;text-decoration:none}
-
-/* MAIN */
+.close-btn{font-size:22px;text-decoration:none;color:#94a3b8}
 .lesson-main{max-width:600px;margin:0 auto;padding:28px 16px}
-
-/* CONTENT CARD */
 .content-card{background:#fff;border:3px solid #e2e8f0;border-radius:20px;padding:24px;margin-bottom:20px}
 .lesson-tag{display:inline-flex;align-items:center;gap:6px;background:#ede9fe;border-radius:100px;padding:4px 12px;font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:14px}
 .lesson-title{font-family:'Lilita One',cursive;font-size:22px;color:#1a1f36;margin-bottom:16px;line-height:1.2}
@@ -30,22 +23,16 @@ body{font-family:'Nunito',sans-serif;background:#f0f4ff;color:#1a1f36;min-height
 .key-points-title{font-size:12px;font-weight:900;color:#6366f1;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
 .key-point{display:flex;align-items:flex-start;gap:8px;font-size:13px;font-weight:700;color:#374151;margin-bottom:6px}
 .key-point:last-child{margin:0}
-.key-point::before{content:'✅';flex-shrink:0}
-
-/* QUIZ */
 .quiz-card{background:#fff;border:3px solid #e2e8f0;border-radius:20px;padding:24px;margin-bottom:20px}
 .quiz-count{font-size:12px;font-weight:900;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
 .quiz-question{font-size:18px;font-weight:900;color:#1a1f36;margin-bottom:6px;line-height:1.4}
 .quiz-sub{font-size:13px;font-weight:700;color:#64748b;margin-bottom:20px}
 .answers-grid{display:flex;flex-direction:column;gap:10px}
 .answer-btn{padding:14px 18px;border-radius:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;border:3px solid #e2e8f0;background:#f8fafc;color:#1a1f36;text-align:left;transition:all 0.2s;width:100%}
-.answer-btn:hover:not(:disabled){border-color:#6366f1;background:#f0f4ff;color:#6366f1}
-.answer-btn.correct{border-color:#22c55e;background:#dcfce7;color:#15803d}
-.answer-btn.wrong{border-color:#ef4444;background:#fee2e2;color:#dc2626}
-.answer-btn:disabled{cursor:not-allowed}
-
-/* FEEDBACK */
-.feedback{border-radius:14px;padding:16px 20px;margin-top:14px;display:none;align-items:flex-start;gap:12px}
+.answer-btn:hover{border-color:#6366f1;background:#f0f4ff;color:#6366f1}
+.answer-btn.correct{border-color:#22c55e !important;background:#dcfce7 !important;color:#15803d !important}
+.answer-btn.wrong{border-color:#ef4444 !important;background:#fee2e2 !important;color:#dc2626 !important}
+.feedback{border-radius:14px;padding:16px 20px;margin-top:14px;display:flex;align-items:flex-start;gap:12px}
 .feedback.ok{background:#dcfce7;border:3px solid #86efac}
 .feedback.bad{background:#fee2e2;border:3px solid #fca5a5}
 .feedback-icon{font-size:24px;flex-shrink:0}
@@ -55,141 +42,143 @@ body{font-family:'Nunito',sans-serif;background:#f0f4ff;color:#1a1f36;min-height
 .feedback-text{font-size:13px;font-weight:700;line-height:1.6}
 .feedback.ok .feedback-text{color:#166534}
 .feedback.bad .feedback-text{color:#991b1b}
-
-/* BUTTONS */
-.btn-continue{width:100%;padding:16px;background:#6366f1;color:#fff;border:none;border-radius:100px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 14px rgba(99,102,241,0.3);display:none}
-.btn-continue:hover{background:#4f46e5;transform:translateY(-2px)}
-.btn-next-quiz{width:100%;padding:16px;background:#6366f1;color:#fff;border:none;border-radius:100px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 14px rgba(99,102,241,0.3);margin-top:12px;display:none}
-.btn-start-quiz{width:100%;padding:16px;background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;border:none;border-radius:100px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 14px rgba(99,102,241,0.3)}
-.btn-start-quiz:hover{transform:translateY(-2px)}
-
-/* COMPLETION */
-.completion-card{background:linear-gradient(135deg,#6366f1,#4f46e5);border-radius:24px;padding:40px 24px;text-align:center;color:#fff;display:none}
-.completion-emoji{font-size:72px;margin-bottom:16px;animation:pop 0.5s ease}
-@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
+.btn-continue{width:100%;padding:16px;background:#6366f1;color:#fff;border:none;border-radius:100px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 14px rgba(99,102,241,0.3);margin-top:14px}
+.btn-start-quiz{width:100%;padding:16px;background:#6366f1;color:#fff;border:none;border-radius:100px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 14px rgba(99,102,241,0.3)}
+.completion-card{background:linear-gradient(135deg,#6366f1,#4f46e5);border-radius:24px;padding:40px 24px;text-align:center;color:#fff}
+.completion-emoji{font-size:72px;margin-bottom:16px}
 .completion-title{font-family:'Lilita One',cursive;font-size:28px;margin-bottom:8px}
 .completion-sub{font-size:15px;font-weight:700;opacity:0.85;margin-bottom:24px}
 .xp-gained{background:rgba(255,255,255,0.2);border-radius:14px;padding:14px;margin-bottom:20px;font-size:20px;font-weight:900}
-.btn-home{background:#fff;color:#6366f1;padding:14px 28px;border-radius:100px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;border:none;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block}
-.btn-home:hover{transform:translateY(-2px)}
-
+.btn-home{background:#fff;color:#6366f1;padding:14px 28px;border-radius:100px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;border:none;cursor:pointer;text-decoration:none;display:inline-block}
 .loading{text-align:center;padding:60px;color:#94a3b8;font-size:16px;font-weight:700}
 </style>
 </head>
 <body>
 
 <div class="lesson-header">
-  <a class="btn-back" href="/app">←</a>
+  <a class="btn-back" href="/app">&#8592;</a>
   <div class="progress-wrap">
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
   </div>
-  <a class="close-btn" href="/app">✕</a>
+  <a class="close-btn" href="/app">&#10005;</a>
 </div>
 
 <div class="lesson-main" id="lessonMain">
-  <div class="loading">⏳ Chargement de la leçon...</div>
+  <div class="loading">Chargement de la lecon...</div>
 </div>
 
 <script>
-var lessonId    = parseInt(window.location.pathname.split("/").pop()) || 1;
-var lessonData  = null;
-var quizIndex   = 0;
-var score       = 0;
-var totalQ      = 0;
-var phase       = "content"; // content | quiz | done
+var lessonId   = parseInt(window.location.pathname.split("/").pop()) || 1;
+var lessonData = null;
+var quizIndex  = 0;
+var score      = 0;
+var totalQ     = 0;
+var answered   = false;
 
 async function loadLesson() {
   try {
     var r = await fetch("/api/lesson/" + lessonId);
     if (!r.ok) {
-      document.getElementById("lessonMain").innerHTML = "<div class='loading'>🔒 Cette leçon nécessite un abonnement Pro.<br><br><a href='/pricing' style='color:#6366f1;font-weight:900'>Passer Pro →</a></div>";
+      document.getElementById("lessonMain").innerHTML =
+        "<div class='loading'>Cette lecon necessite un abonnement Pro.<br><br><a href='/pricing' style='color:#6366f1;font-weight:900'>Passer Pro</a></div>";
       return;
     }
     lessonData = await r.json();
     totalQ     = lessonData.quiz ? lessonData.quiz.length : 0;
     renderContent();
   } catch(e) {
-    document.getElementById("lessonMain").innerHTML = "<div class='loading'>❌ Erreur de chargement</div>";
+    document.getElementById("lessonMain").innerHTML = "<div class='loading'>Erreur de chargement</div>";
   }
 }
 
 function renderContent() {
-  phase = "content";
-  updateProgress(0);
+  document.getElementById("progressFill").style.width = "10%";
   var kp = (lessonData.key_points || []).map(function(p){
-    return "<div class='key-point'>" + p + "</div>";
+    return "<div class='key-point'>&#10003; " + p + "</div>";
   }).join("");
 
-  document.getElementById("lessonMain").innerHTML =
-    "<div class='content-card'>" +
-      "<div class='lesson-tag'>" + lessonData.module_emoji + " " + lessonData.module_name + "</div>" +
-      "<div class='lesson-title'>" + lessonData.title + "</div>" +
-      "<div class='lesson-content'>" + lessonData.content + "</div>" +
-      (kp ? "<div class='key-points'><div class='key-points-title'>Points cles</div>" + kp + "</div>" : "") +
-    "</div>" +
-    "<button class='btn-start-quiz' onclick='startQuiz()'>Commencer le quiz ✏️</button>";
+  var html = "<div class='content-card'>" +
+    "<div class='lesson-tag'>" + (lessonData.module_emoji||"") + " " + (lessonData.module_name||"") + "</div>" +
+    "<div class='lesson-title'>" + lessonData.title + "</div>" +
+    "<div class='lesson-content'>" + lessonData.content + "</div>";
+
+  if (kp) {
+    html += "<div class='key-points'><div class='key-points-title'>Points cles</div>" + kp + "</div>";
+  }
+  html += "</div>";
+
+  if (totalQ > 0) {
+    html += "<button class='btn-start-quiz' onclick='startQuiz()'>Commencer le quiz</button>";
+  } else {
+    html += "<button class='btn-start-quiz' onclick='completeLesson()'>Terminer la lecon</button>";
+  }
+
+  document.getElementById("lessonMain").innerHTML = html;
 }
 
 function startQuiz() {
   quizIndex = 0;
   score     = 0;
-  phase     = "quiz";
+  answered  = false;
   renderQuiz();
 }
 
 function renderQuiz() {
   if (quizIndex >= totalQ) {
-    renderCompletion();
+    completeLesson();
     return;
   }
+
+  answered = false;
   var q   = lessonData.quiz[quizIndex];
-  var pct = ((quizIndex) / totalQ * 100);
-  updateProgress(pct);
+  var pct = Math.round((quizIndex / totalQ) * 80) + 10;
+  document.getElementById("progressFill").style.width = pct + "%";
 
-  var answers = q.answers.map(function(a, i) {
-    return "<button class='answer-btn' onclick='checkAnswer(this," + i + "," + q.correct + ",\"" + escapeHtml(q.explanation) + "\")'>" + a + "</button>";
-  }).join("");
+  var answersHtml = "";
+  for (var i = 0; i < q.answers.length; i++) {
+    answersHtml += "<button class='answer-btn' id='ans-" + i + "' onclick='checkAnswer(" + i + "," + q.correct + ",\"" + q.explanation.replace(/"/g,"'") + "\")'>" + q.answers[i] + "</button>";
+  }
 
-  document.getElementById("lessonMain").innerHTML =
-    "<div class='quiz-card'>" +
-      "<div class='quiz-count'>Question " + (quizIndex+1) + " sur " + totalQ + "</div>" +
-      "<div class='quiz-question'>" + q.question + "</div>" +
-      "<div class='quiz-sub'>Choisis la bonne reponse</div>" +
-      "<div class='answers-grid'>" + answers + "</div>" +
-      "<div class='feedback' id='feedback'>" +
-        "<div class='feedback-icon' id='fbIcon'></div>" +
-        "<div><div class='feedback-title' id='fbTitle'></div>" +
-        "<div class='feedback-text' id='fbText'></div></div>" +
-      "</div>" +
-      "<button class='btn-next-quiz' id='btnNext' onclick='nextQuestion()'>Continuer →</button>" +
+  var html = "<div class='quiz-card'>" +
+    "<div class='quiz-count'>Question " + (quizIndex+1) + " sur " + totalQ + "</div>" +
+    "<div class='quiz-question'>" + q.question + "</div>" +
+    "<div class='quiz-sub'>Choisis la bonne reponse</div>" +
+    "<div class='answers-grid' id='answersGrid'>" + answersHtml + "</div>" +
+    "<div id='feedbackZone'></div>" +
     "</div>";
+
+  document.getElementById("lessonMain").innerHTML = html;
 }
 
-function checkAnswer(btn, idx, correct, explanation) {
-  var buttons = document.querySelectorAll(".answer-btn");
-  buttons.forEach(function(b){ b.disabled = true; });
-  var fb    = document.getElementById("feedback");
-  var fbIcon  = document.getElementById("fbIcon");
-  var fbTitle = document.getElementById("fbTitle");
-  var fbText  = document.getElementById("fbText");
-  var btnNext = document.getElementById("btnNext");
+function checkAnswer(idx, correct, explanation) {
+  if (answered) return;
+  answered = true;
 
-  if (idx === correct) {
-    btn.classList.add("correct");
-    fb.className  = "feedback ok";
-    fbIcon.textContent  = "🎉";
-    fbTitle.textContent = "Excellent !";
-    score++;
-  } else {
-    btn.classList.add("wrong");
-    buttons[correct].classList.add("correct");
-    fb.className  = "feedback bad";
-    fbIcon.textContent  = "💡";
-    fbTitle.textContent = "Pas tout a fait...";
+  var buttons = document.querySelectorAll(".answer-btn");
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].disabled = true;
+    buttons[i].style.cursor = "not-allowed";
   }
-  fbText.textContent = explanation;
-  fb.style.display   = "flex";
-  btnNext.style.display = "block";
+
+  var isCorrect = (idx === correct);
+  document.getElementById("ans-" + idx).classList.add(isCorrect ? "correct" : "wrong");
+  if (!isCorrect) {
+    document.getElementById("ans-" + correct).classList.add("correct");
+  } else {
+    score++;
+  }
+
+  var fbClass = isCorrect ? "feedback ok" : "feedback bad";
+  var fbIcon  = isCorrect ? "🎉" : "💡";
+  var fbTitle = isCorrect ? "Excellent !" : "Pas tout a fait...";
+
+  document.getElementById("feedbackZone").innerHTML =
+    "<div class='" + fbClass + "'>" +
+      "<div class='feedback-icon'>" + fbIcon + "</div>" +
+      "<div><div class='feedback-title'>" + fbTitle + "</div>" +
+      "<div class='feedback-text'>" + explanation + "</div></div>" +
+    "</div>" +
+    "<button class='btn-continue' onclick='nextQuestion()'>Continuer</button>";
 }
 
 function nextQuestion() {
@@ -197,47 +186,37 @@ function nextQuestion() {
   renderQuiz();
 }
 
-async function renderCompletion() {
-  phase = "done";
-  updateProgress(100);
-  var pct = Math.round(score / totalQ * 100);
+async function completeLesson() {
+  document.getElementById("progressFill").style.width = "100%";
+  var pct = totalQ > 0 ? Math.round(score / totalQ * 100) : 100;
   var xpGained = 0;
 
   try {
     var r = await fetch("/api/complete-lesson", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
+      headers: {"Content-Type":"application/json"},
       body: JSON.stringify({lesson_id: lessonId, score: pct})
     });
     var d = await r.json();
     xpGained = d.xp_gained || 0;
   } catch(e) {}
 
-  var emoji  = pct >= 80 ? "🏆" : pct >= 50 ? "⭐" : "💪";
-  var title  = pct >= 80 ? "Parfait !" : pct >= 50 ? "Bien joue !" : "Continue !";
-  var subMsg = score + "/" + totalQ + " bonnes reponses (" + pct + "%)";
+  var emoji = pct >= 80 ? "🏆" : pct >= 50 ? "⭐" : "💪";
+  var title = pct >= 80 ? "Parfait !" : pct >= 50 ? "Bien joue !" : "Continue !";
+  var sub   = totalQ > 0 ? (score + "/" + totalQ + " bonnes reponses (" + pct + "%)") : "Lecon terminee !";
 
   document.getElementById("lessonMain").innerHTML =
-    "<div class='completion-card' id='completionCard'>" +
+    "<div class='completion-card'>" +
       "<div class='completion-emoji'>" + emoji + "</div>" +
       "<div class='completion-title'>" + title + "</div>" +
-      "<div class='completion-sub'>" + subMsg + "</div>" +
-      "<div class='xp-gained'>⚡ +" + xpGained + " XP gagnes !</div>" +
-      "<a href='/app' class='btn-home'>Retour aux modules 🏠</a>" +
+      "<div class='completion-sub'>" + sub + "</div>" +
+      "<div class='xp-gained'>+ " + xpGained + " XP gagnes !</div>" +
+      "<a href='/app' class='btn-home'>Retour aux modules</a>" +
     "</div>";
-
-  document.getElementById("completionCard").style.display = "block";
-}
-
-function updateProgress(pct) {
-  document.getElementById("progressFill").style.width = pct + "%";
-}
-
-function escapeHtml(str) {
-  return str.replace(/"/g, '&quot;').replace(/'/g, "\\'");
 }
 
 loadLesson();
 </script>
 </body>
 </html>
+
